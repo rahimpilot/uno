@@ -634,6 +634,76 @@
 }
 
 
+.join-row {
+  display: flex;
+  gap: 10px;
+}
+
+.join-row .lobby-input {
+  flex: 1;
+}
+
+.join-row .start-btn {
+  margin-top: 0;
+  white-space: nowrap;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+}
+
+.public-rooms {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.public-rooms h4 {
+  margin: 0 0 10px 0;
+  color: #aaa;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.rooms-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.room-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.room-item span {
+  font-size: 0.9rem;
+  color: #eee;
+}
+
+.room-item button {
+  background: #34C759;
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+  transition: 0.2s;
+}
+
+.room-item button:hover {
+  background: #2e8b57;
+  transform: scale(1.05);
+}
+
 /* ============================ */
 /* MOBILE RESPONSIVE ADAPTATIONS */
 /* ============================ */

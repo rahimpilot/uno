@@ -70,6 +70,7 @@ function App() {
   const [inputRoomId, setInputRoomId] = useState('');
   const [gameState, setGameState] = useState(null);
   const [pendingCard, setPendingCard] = useState(null);
+  const [publicRooms, setPublicRooms] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -87,6 +88,25 @@ function App() {
     });
     return () => unsubscribe();
   }, []);
+
+  // Sync public rooms
+  useEffect(() => {
+    if (!isAuthReady) return;
+    const gamesRef = ref(db, 'games');
+    const unsubscribe = onValue(gamesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const rooms = Object.keys(data)
+          .map(id => ({ id, ...data[id] }))
+          .filter(room => !room.gameStarted && room.players?.length > 0 && room.players?.length < 10)
+          .slice(0, 5); // Show top 5
+        setPublicRooms(rooms);
+      } else {
+        setPublicRooms([]);
+      }
+    });
+    return () => unsubscribe();
+  }, [isAuthReady]);
 
   // Sync with Firebase
   useEffect(() => {
@@ -127,12 +147,9 @@ function App() {
     setRoomId(code);
   };
 
-  const joinRoom = async () => {
+  const joinSpecificRoom = async (code) => {
     if (!localPlayer.name) return alert("Please enter your name");
-    if (!inputRoomId) return alert("Please enter a room code");
-
     savePlayerName(localPlayer.name);
-    const code = inputRoomId.toUpperCase();
 
     const gameSnap = await get(child(ref(db), `games/${code}`));
     if (!gameSnap.exists()) return alert("Room not found!");
@@ -142,11 +159,16 @@ function App() {
 
     if (!game.players) game.players = [];
     if (!game.players.find(p => p.id === localPlayer.id)) {
-      if (game.players.length >= 10) return alert("Room is full (max 10 players)!");
+      if (game.players.length >= 10) return alert("Room is full!");
       game.players.push({ ...localPlayer, hand: [] });
       await set(ref(db, `games/${code}/players`), game.players);
     }
     setRoomId(code);
+  };
+
+  const joinRoom = async () => {
+    if (!inputRoomId) return alert("Please enter a room code");
+    joinSpecificRoom(inputRoomId.toUpperCase());
   };
 
   const startGame = async () => {
@@ -320,7 +342,7 @@ function App() {
             <label>Your Name:</label>
             <input
               type="text"
-              placeholder="e.g. Rahim"
+              placeholder="Enter your name"
               value={localPlayer.name}
               onChange={e => setLocalPlayer({ ...localPlayer, name: e.target.value })}
               className="lobby-input"
@@ -332,17 +354,33 @@ function App() {
             <div className="divider"><span>OR</span></div>
             <div className="input-group">
               <label>Room Code:</label>
-              <input
-                type="text"
-                placeholder="ABCD"
-                value={inputRoomId}
-                onChange={e => setInputRoomId(e.target.value)}
-                className="lobby-input code-input"
-                maxLength={4}
-              />
-              <button className="start-btn secondary-btn" onClick={joinRoom}>Join Room</button>
+              <div className="join-row">
+                <input
+                  type="text"
+                  placeholder="ABCD"
+                  value={inputRoomId}
+                  onChange={e => setInputRoomId(e.target.value)}
+                  className="lobby-input code-input"
+                  maxLength={4}
+                />
+                <button className="start-btn secondary-btn" onClick={joinRoom}>Join</button>
+              </div>
             </div>
           </div>
+
+          {publicRooms.length > 0 && (
+            <div className="public-rooms">
+              <h4>Active Lobbies</h4>
+              <div className="rooms-list">
+                {publicRooms.map(room => (
+                  <div key={room.id} className="room-item">
+                    <span>{room.players[0].name}'s Room ({room.players.length}/10)</span>
+                    <button onClick={() => joinSpecificRoom(room.id)}>Join</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
