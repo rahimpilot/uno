@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBZNnz2VADOEDg4xttUsBIHdraVQsnZiFY",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: "unogame-5c228.firebaseapp.com",
     databaseURL: "https://unogame-5c228-default-rtdb.firebaseio.com",
     projectId: "unogame-5c228",
