@@ -1,0 +1,448 @@
+.card-table-container {
+  width: 100vw;
+  height: 100vh;
+  /* Premium casino/UNO green background with radial effect */
+  background: radial-gradient(circle at center, #2e8b57 0%, #174b2f 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.table-header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.table-header h1 {
+  font-size: 4rem;
+  margin: 0;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #ff5e5e, #ffd54f, #4caf50, #2196f3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+}
+
+.start-btn {
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #ffd54f, #ffcc00);
+  color: #174b2f;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: 0.2s transform, 0.2s box-shadow;
+}
+
+.start-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Base Deck styling */
+.card-deck {
+  width: 140px;
+  height: 200px;
+  background: #111; /* Back of UNO card */
+  border-radius: 12px;
+  border: 8px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5), -1px -1px 0px rgba(255, 255, 255, 0.2);
+  transform: rotate(-5deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Red oval behind the UNO text */
+.card-deck::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 150px;
+  background: #ce2029;
+  border-radius: 50% 50% 50% 50% / 100% 100% 100% 100%;
+  transform: skewX(-5deg);
+  z-index: 0;
+}
+
+/* Creates a fake stack look */
+.card-deck::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: -4px;
+  bottom: -4px;
+  background: #111;
+  border-radius: 12px;
+  border: 4px solid white;
+  z-index: -1;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-deck:hover {
+  transform: rotate(-3deg) translateY(-5px) scale(1.02);
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.card-logo {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ffcc00; /* UNO yellow */
+  text-shadow: 2px 2px 0px black;
+  transform: rotate(-20deg);
+  font-style: italic;
+  letter-spacing: 1px;
+  z-index: 1; /* Keep above oval */
+}
+
+.deck-count {
+  position: absolute;
+  bottom: -35px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+/* ============================ */
+/* THE GENERATED UNO CARDS      */
+/* ============================ */
+.uno-card {
+  width: 140px;
+  height: 200px;
+  background: var(--card-color);
+  border-radius: 12px;
+  border: 8px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+  position: relative;
+  transition: 0.2s transform ease-in-out;
+  cursor: pointer;
+}
+
+.card-top-left, .card-bottom-right {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 4px 8px;
+  position: absolute;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.card-top-left {
+  top: 0;
+  left: 0;
+}
+
+.card-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.card-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-center-bg {
+  width: 90px;
+  height: 140px;
+  background: white;
+  border-radius: 50% 50% 50% 50% / 100% 100% 100% 100%; /* Classic Oval */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: skewX(-5deg);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+.card-center-text {
+  font-size: 50px;
+  font-weight: 900;
+  color: var(--card-color);
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+  transform: skewX(5deg); /* Correct the text skew */
+  text-align: center;
+  line-height: 1;
+}
+
+/* Wild cards need special text sizing */
+.uno-card[style*="--card-color: #1d1d1d"] .card-center-text {
+  font-size: 28px;
+}
+
+/* ============================ */
+/* GAME LAYOUT & TABLES         */
+/* ============================ */
+.game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+}
+
+.player-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-area h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 15px;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.player-area.active-turn {
+  opacity: 1;
+  filter: grayscale(0%);
+  padding: 0 40px;
+  border-radius: 30px;
+  box-shadow: 0 0 50px rgba(255, 215, 0, 0.2); /* Soft golden halo */
+  transition: all 0.5s ease;
+}
+
+.player-area.waiting {
+  opacity: 0.4;
+  filter: grayscale(60%);
+  transition: all 0.5s ease;
+  pointer-events: none; /* Make clicking inactive hand physically impossible */
+}
+
+.player-area h3.active-player {
+  background: #ffcc00;
+  color: black;
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+}
+
+.table-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-grow: 1;
+}
+
+.discard-pile {
+  position: relative;
+  transform: rotate(3deg);
+}
+
+/* ============================ */
+/* HORIZONTAL FAN HANDS         */
+/* ============================ */
+.hand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+  position: relative;
+  /* Allows cards to overlap horizontally */
+}
+
+/* The Fan Effect */
+.fan-hand .uno-card {
+  margin-left: -50px; /* Overlap them */
+  transition: 0.3s transform ease, 0.3s margin ease;
+}
+
+.fan-hand .uno-card:first-child {
+  margin-left: 0;
+}
+
+/* Player 1 (Bottom) */
+.bottom-player .fan-hand {
+  margin-top: 10px;
+}
+
+.bottom-player .uno-card:hover {
+  transform: translateY(-20px) scale(1.1);
+  z-index: 10;
+  box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
+}
+
+/* Player 2 (Top) */
+.top-player .fan-hand {
+  margin-bottom: 10px;
+}
+
+.top-player .uno-card {
+  transform: rotate(180deg);
+}
+
+.top-player .uno-card:hover {
+  transform: rotate(180deg) translateY(-20px) scale(1.1);
+  z-index: 10;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+/* ============================ */
+/* COLOR PICKER MODAL           */
+/* ============================ */
+.color-picker-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.color-picker-modal {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  color: black;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.color-options {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.color-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 4px solid white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: 0.2s transform;
+}
+
+.color-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+.color-btn.Red { background: #ce2029; }
+.color-btn.Blue { background: #0056b3; }
+.color-btn.Green { background: #34C759; }
+.color-btn.Yellow { background: #ffcc00; }
+
+/* ============================ */
+/* OPPONENT HANDS & CARD BACKS  */
+/* ============================ */
+.opponent-hand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  position: relative;
+}
+
+.card-back {
+  width: 100px;
+  height: 140px;
+  background: #111;
+  border-radius: 8px;
+  border: 4px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+.card-back::after {
+  content: '';
+  position: absolute;
+  width: 70px;
+  height: 105px;
+  background: #ce2029;
+  border-radius: 50% 50% 50% 50% / 100% 100% 100% 100%;
+  transform: skewX(-5deg);
+  z-index: 0;
+}
+
+.card-back .card-logo {
+  font-size: 1.5rem;
+  z-index: 1;
+}
+
+.opponent-hand .card-back {
+  margin-left: -70px; /* Highly stacked */
+  transition: 0.3s transform ease;
+}
+
+.opponent-hand .card-back:first-child {
+  margin-left: 0;
+}
+
+/* ============================ */
+/* N-PLAYER OPPONENTS ROSTER    */
+/* ============================ */
+.opponents-roster {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  width: 100%;
+  padding: 10px 20px;
+  justify-content: center;
+}
+
+.opponent-badge {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.opponent-badge.active-opponent {
+  opacity: 1;
+  background: rgba(255, 204, 0, 0.2);
+  border-color: #ffcc00;
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.6);
+  transform: scale(1.05);
+}
