@@ -708,6 +708,16 @@
 /* MOBILE RESPONSIVE ADAPTATIONS */
 /* ============================ */
 @media (max-width: 768px) {
+  .card-table-container {
+    height: 100dvh;
+    height: -webkit-fill-available;
+  }
+
+  .game-board {
+    padding: 10px;
+    justify-content: space-around;
+  }
+
   .table-header h1 {
     font-size: 2.5rem;
   }
@@ -718,59 +728,60 @@
   }
 
   .table-center {
-    gap: 20px;
-    transform: scale(0.8);
+    gap: 15px;
+    transform: scale(0.75);
+    flex-grow: 0.5;
   }
 
-  /* Scale down cards */
+  /* Scale down cards even more to fit diverse screens */
   .uno-card,
   .card-deck {
-    width: 70px;
-    height: 105px;
-    border-width: 4px;
+    width: 65px;
+    height: 95px;
+    border-width: 3px;
   }
 
   .card-top-left,
   .card-bottom-right {
-    font-size: 11px;
-    padding: 2px 4px;
+    font-size: 10px;
+    padding: 1px 3px;
   }
 
   .card-center-bg {
-    width: 50px;
-    height: 75px;
+    width: 45px;
+    height: 65px;
   }
 
   .card-center-text {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .uno-card[style*="--card-color: #1d1d1d"] .card-center-text {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .card-logo {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   .card-deck::after {
-    width: 45px;
-    height: 70px;
+    width: 40px;
+    height: 65px;
   }
 
   /* Adjust hand layout for mobile */
   .hand {
-    height: 120px;
+    height: 110px;
     width: 100vw;
     overflow-x: auto;
-    justify-content: flex-start;
-    padding: 0 30px;
+    justify-content: center;
+    padding: 0 10px;
     -webkit-overflow-scrolling: touch;
   }
 
   .fan-hand .uno-card {
-    margin-left: -20px;
-    /* Less overlap for better tapping */
+    margin-left: -15px;
+    /* Tighter but clickable */
     flex-shrink: 0;
   }
 
@@ -779,19 +790,15 @@
   }
 
   .player-area.active-turn {
-    padding: 0 10px;
-    border-radius: 15px;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 0 5px;
+    border-radius: 10px;
+    margin-bottom: 5px;
   }
 
   .player-area h3 {
-    font-size: 0.9rem;
-    padding: 5px 15px;
-    max-width: 95vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    margin-bottom: 5px;
   }
 
   .color-options {
