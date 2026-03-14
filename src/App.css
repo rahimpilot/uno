@@ -655,52 +655,52 @@
   /* Scale down cards */
   .uno-card,
   .card-deck {
-    width: 90px;
-    height: 130px;
-    border-width: 5px;
+    width: 70px;
+    height: 105px;
+    border-width: 4px;
   }
 
   .card-top-left,
   .card-bottom-right {
-    font-size: 14px;
+    font-size: 11px;
     padding: 2px 4px;
   }
 
   .card-center-bg {
-    width: 60px;
-    height: 90px;
+    width: 50px;
+    height: 75px;
   }
 
   .card-center-text {
-    font-size: 30px;
+    font-size: 22px;
   }
 
   .uno-card[style*="--card-color: #1d1d1d"] .card-center-text {
-    font-size: 14px;
+    font-size: 11px;
   }
 
   .card-logo {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .card-deck::after {
-    width: 65px;
-    height: 95px;
+    width: 45px;
+    height: 70px;
   }
 
   /* Adjust hand layout for mobile */
   .hand {
-    height: 140px;
+    height: 120px;
     width: 100vw;
     overflow-x: auto;
     justify-content: flex-start;
-    padding: 0 20px;
+    padding: 0 30px;
     -webkit-overflow-scrolling: touch;
   }
 
   .fan-hand .uno-card {
-    margin-left: -40px;
-    /* Overlap them */
+    margin-left: -20px;
+    /* Less overlap for better tapping */
     flex-shrink: 0;
   }
 
@@ -711,11 +711,17 @@
   .player-area.active-turn {
     padding: 0 10px;
     border-radius: 15px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .player-area h3 {
-    font-size: 1rem;
-    padding: 3px 10px;
+    font-size: 0.9rem;
+    padding: 5px 15px;
+    max-width: 95vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .color-options {
