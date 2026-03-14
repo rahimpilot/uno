@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { ref, onValue, set, get, child } from "firebase/database";
-import { db } from "./firebase";
+import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import { db, auth } from "./firebase";
 import './App.css'
 
 // 1. Deck Generator Logic
@@ -62,17 +63,30 @@ const UnoCard = ({ card, onClick }) => {
 
 function App() {
   // Local Identifiers
-  const [localPlayer, setLocalPlayer] = useState(() => {
-    let saved = localStorage.getItem('uno_player');
-    if (saved) return JSON.parse(saved);
-    let newPlayer = { id: Math.random().toString(36).substring(2, 9), name: '' };
-    return newPlayer;
-  });
+  const [localPlayer, setLocalPlayer] = useState({ id: '', name: '' });
+  const [isAuthReady, setIsAuthReady] = useState(false);
 
   const [roomId, setRoomId] = useState('');
   const [inputRoomId, setInputRoomId] = useState('');
   const [gameState, setGameState] = useState(null);
   const [pendingCard, setPendingCard] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        let savedName = '';
+        const saved = localStorage.getItem('uno_player');
+        if (saved) {
+          try { savedName = JSON.parse(saved).name; } catch (e) { }
+        }
+        setLocalPlayer({ id: user.uid, name: savedName });
+        setIsAuthReady(true);
+      } else {
+        signInAnonymously(auth).catch(console.error);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Sync with Firebase
   useEffect(() => {
@@ -285,6 +299,16 @@ function App() {
   };
 
   // Views
+  if (!isAuthReady) {
+    return (
+      <div className="card-table-container">
+        <div className="lobby-box">
+          <h2>Connecting to Secure Server...</h2>
+        </div>
+      </div>
+    );
+  }
+
   if (!roomId) {
     return (
       <div className="card-table-container">
