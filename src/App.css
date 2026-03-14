@@ -731,4 +731,39 @@
   .color-picker-modal h2 {
     font-size: 1.2rem;
   }
+
+  /* Lobby adjustments for mobile */
+  .lobby-box {
+    padding: 20px;
+    min-width: 90vw;
+    max-width: 95vw;
+  }
+
+  .waiting-room {
+    min-width: 90vw;
+  }
+
+  .uno-logo-text {
+    font-size: 3.5rem;
+  }
+
+  .lobby-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .highlight-code {
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+  }
+
+  .opponents-roster {
+    padding: 5px 10px;
+    gap: 10px;
+  }
+
+  .opponent-badge {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
 }
