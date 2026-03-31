@@ -213,6 +213,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
+  /* Appends elasticity to fill exact container height */
   height: 100%;
   width: 100%;
   padding: 20px;
@@ -715,7 +717,10 @@
 
   .game-board {
     padding: 10px;
-    justify-content: space-around;
+    justify-content: space-between;
+    /* Changes space-around to space-between to push table down appropriately */
+    padding-bottom: 25px;
+    /* Added some padding to lift cards slightly off very bottom */
   }
 
   .table-header h1 {
@@ -729,8 +734,10 @@
 
   .table-center {
     gap: 15px;
-    transform: scale(0.75);
-    flex-grow: 0.5;
+    transform: scale(0.8);
+    flex-grow: 1;
+    /* Fix shrinking layout */
+    margin: 20px 0;
   }
 
   /* Scale down cards even more to fit diverse screens */
@@ -771,11 +778,13 @@
 
   /* Adjust hand layout for mobile */
   .hand {
-    height: 110px;
-    width: 100vw;
+    height: 120px;
+    /* Slight height boost to preserve padding */
+    width: 100%;
+    /* Avoid 100vw bug */
     overflow-x: auto;
     justify-content: center;
-    padding: 0 10px;
+    padding: 5px 10px;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -790,9 +799,11 @@
   }
 
   .player-area.active-turn {
-    padding: 0 5px;
-    border-radius: 10px;
+    padding: 10px 5px;
+    border-radius: 15px;
     margin-bottom: 5px;
+    width: 100%;
+    max-width: 450px;
   }
 
   .player-area h3 {
